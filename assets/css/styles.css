@@ -31,3 +31,14 @@
     
 }
 
+.hr-meteogram{
+    font-size: x-small;
+    display:flex;
+    justify-content: space-between;
+    width: 100%
+
+}
+
+.hr-meteogram img{
+    max-width: 100%;
+}

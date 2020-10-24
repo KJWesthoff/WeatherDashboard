@@ -6,13 +6,6 @@ var myKey = config.OPEN_WEATHER_KEY;
 
 
 // get the city name from the search field
-
-
-
-
-
-
-
 var getData = function(cityName){
 
     // clean the place string
@@ -109,29 +102,139 @@ var populateNow = function(cityObj, UVindex){
 
     // Attach to the today card element
     var todayEl =  document.querySelector("#today");
-    console.log(todayEl);
+    
     todayEl.appendChild(cardEl);
     
 };
 
-// function to build a forecast weather card
-var populateForecastCard = function(){
+
+
+
+
+var populateForecast = function(fcastObj){
+    
     //Build a dom element for the forecast card
     var cardEl = document.createElement("div"); 
     cardEl.setAttribute("class", "card");
+
+    // get the timeline
+    hrsList = fcastObj.list;
+
+    
+    // cut the timeline in chunks of 8 
+    var timeChunks = [];
+    var i = 0;
+    var chSize = 8;
+    
+    while(i < hrsList.length){
+        timeChunks.push(hrsList.slice(i, chSize+i));
+        i += chSize;    
+    }
+
+    // log out time
+    for(chunk of timeChunks){
+        for(time of chunk){
+                stamp = moment.unix(time.dt).format("MMM Do YYYY / h:a");
+                console.log(stamp);
+            }
+        console.log("----- Next day -----------" );    
+    }
+
+
+    console.log(timeChunks[2]);
+
+    for(chunk of timeChunks){
+        cardEl = populateForecastCard(chunk);
+        document.getElementById("forecastcards").appendChild(cardEl);
+    };   
+};
+
+
+// function to build a forecast weather card
+var populateForecastCard = function(chunkObj){
+    //Build a dom element for the forecast card
+    var cardEl = document.createElement("div"); 
+    cardEl.setAttribute("class", "card");
+
+    // dig out varoius data from the API chunk
+    dateStr = moment.unix(chunkObj[6].dt).format("MMM Do");
+
+    console.log(chunkObj[6]);
+
+    //build a html elment for each our of the chunk
+    var rowEl = document.createElement("div");
+    rowEl.setAttribute("class", "hr-meteogram");
+    for(time of chunkObj){
+        var hrCol = document.createElement("div");
+        hrCol.setAttribute("class", "hr-meteogram-el")
+
+        hrCol.innerHTML = 
+        
+        `
+        <div>
+            ${moment.unix(time.dt).format("h")}</br>
+            ${moment.unix(time.dt).format("a")}</br>
+            ${((time.main.temp-273.15)*9/5+32).toFixed(0) + "&#176"} </br> 
+            <img src="${"http://openweathermap.org/img/w/" + time.weather[0].icon + ".png"}" alt=""></br>
+          
+            <span id ="arrow" style="--angle: ${time.wind.deg}deg">&#8679;</span> </br>
+            ${Math.round((time.wind.speed)*1.94384)}.kt
+            
+        </div>
+        `
+
+        rowEl.appendChild(hrCol)
+    }
+
+    console.log(rowEl)
+    
+    
+    // build a big html monster -- just decided to try it for this project..
+    
+    htmlStr = `
+    <div class="card" style="width: 12rem;">
+        <div class="card-body">
+            <div class = "row">
+                <h5 class="col card-title">${dateStr}</h5>
+            </div>
+            <div class = "row">
+                <div class="col">
+                    ${moment.unix(chunkObj[2].dt).format("h:a")}
+                    ${((chunkObj[2].main.temp-273.15)*9/5+32).toFixed(1) + "&#176F"}  
+                    <img src="${"http://openweathermap.org/img/w/" + chunkObj[2].weather[0].icon + ".png"}" alt="">                       
+                </div>
+                
+    
+
+                <div class="col">
+                    ${moment.unix(chunkObj[6].dt).format("h:a")}
+                    ${((chunkObj[6].main.temp-273.15)*9/5+32).toFixed(1) + "&#176F"}  
+                    <img src="${"http://openweathermap.org/img/w/" + chunkObj[6].weather[0].icon + ".png"}" alt="">  
+                </div>
+
+            </div>
+            <div class = "row">
+                ${rowEl.outerHTML}
+            </div>
+
+
+            <div class = "row">
+           
+            </div>  
+        </div>
+    </div>
+    `
+    cardEl.innerHTML = htmlStr;
+
+    return cardEl
+
+
 }
 
+//helper functions..
 
 
 
-
-var populateForecast = function(cityObj){
-    
-    
-
-    
-    //console.log(cityObj);
-};
 
 
 
