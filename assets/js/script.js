@@ -2,6 +2,7 @@
 // Get the API key for open weather
 var myKey = config.OPEN_WEATHER_KEY;
 
+var cityList = JSON.parse(localStorage.getItem('cityList')) || [];
 
 
 
@@ -33,6 +34,13 @@ var getData = function(cityName){
             var UVindex = UVdata.value
             
             populateNow(data, UVindex);
+            // it all seems to be working add the city to the visited list
+            var cityName = data.name;
+            var cityId = data.sys.id;
+            var cityCountry = data.sys.country;  
+            addCity(cityName, cityCountry, cityId);
+
+
         });
 
         var urlForecast =  `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${myKey}`;
@@ -44,13 +52,43 @@ var getData = function(cityName){
             };
         }).then(function(data){
             populateForecast(data);
+
+            
         });
     
 
+    }).catch(function(){
+        alert("Unable To Find That Place - try again");
     });
-
-
+    
 }
+
+var addCity = function(cityName, cityCountry, cityId){
+    cityObj = {
+        "name":cityName,
+        "country":cityCountry,
+        "id":cityId  
+    }
+    cityList.push(cityObj);
+    localStorage.setItem("cityList", JSON.stringify(cityList));
+    renderCities(cityList);  
+};
+
+
+var renderCities = function(cList){
+    cityListEl = document.getElementById("cityHistory");
+
+    for(city of cList){
+    
+        cityEl = document.createElement("li");
+        cityEl.setAttribute("class", "list-group-item")
+        cityEl.setAttribute("data-id", city.id)
+        cityEl.textContent = city.name + ", " + city.country;
+        cityListEl.prepend(cityEl);
+    }
+};
+
+
 
 
 // function to build the current weather card
@@ -75,9 +113,6 @@ var populateNow = function(cityObj, UVindex){
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
     
-
-
-
     // convert temperature to celcius and farenheit
     var tC = cityObj.main.temp - 273.15
     var tK = (cityObj.main.temp - 273.15)*9/5+32
@@ -90,7 +125,7 @@ var populateNow = function(cityObj, UVindex){
    
     // build a big ugly chunk of html..
     var htmlStr = `<div class = "card-body">
-        <h5 id="city-now" class = "card-title">${cityObj.name} : ${moment.unix(cityObj.dt).format("MMM Do YYYY")}</h5>
+        <h2 id="city-now" class = "card-title">${cityObj.name} : ${moment.unix(cityObj.dt).format("MMM Do YYYY")}</h5>
         <img src="${iconurl}" alt="">
         <p class="card-text">Temperature: ${tempStr}</p>
         <p class="card-text">Humidity: ${cityObj.main.humidity}% relative </p>
@@ -135,6 +170,7 @@ var populateForecast = function(fcastObj){
         cardEl = populateForecastCard(chunk);
         document.getElementById("forecastcards").appendChild(cardEl);
     };   
+    document.getElementById("five-days").innerHTML = "<h2>5 day forecast</h2>"
 };
 
 
@@ -151,7 +187,7 @@ var populateForecastCard = function(chunkObj){
         time= chunkObj[i]
         
         if(moment.unix(time.dt).format("h:a") ===  "2:pm"){  
-            console.log("----Found 2Pm");
+            //console.log("----Found 2Pm");
             twoPmEl = chunkObj[i];
 
         };
@@ -202,11 +238,7 @@ var populateForecastCard = function(chunkObj){
             </div>
             <div class = "row">
                 ${rowEl.outerHTML}
-                  
-            </div>
-
-
-           
+            </div>           
         </div>
     </div>
     `
@@ -221,11 +253,19 @@ var populateForecastCard = function(chunkObj){
 
 var handleSearchClick = function(){
     var cityName = document.getElementById("search-input").value    
+    
+    // clear the old data
+    document.getElementById("today").innerHTML = "";
+    document.getElementById("forecastcards").innerHTML = "";
+    document.getElementById("five-days").innerHTML = "";
+    
+    
     getData(cityName);
+
 }
 
-
-
+// Main program exceutions
+renderCities(cityList);
 
 document.getElementById("search-btn").addEventListener("click",handleSearchClick);
 

@@ -52,3 +52,12 @@
     max-width: 90%;
        
 }
+
+#five-days{
+    padding:10px 0 0 20px
+}
+
+#today .card{
+    width: 90%;
+
+}
