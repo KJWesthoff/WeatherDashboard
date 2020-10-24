@@ -59,6 +59,8 @@ var getData = function(cityName){
 
 }
 
+
+// function to build the current weather card
 var populateNow = function(cityObj, UVindex){
     
     // evaluate UV index
@@ -75,7 +77,11 @@ var populateNow = function(cityObj, UVindex){
         uvclass = "uv-extreme"
     }
 
-    // evaluate wind direction
+    // get icon for weather
+    var iconcode = cityObj.weather[0].icon;
+    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+
+    
 
 
 
@@ -89,25 +95,34 @@ var populateNow = function(cityObj, UVindex){
     var cardEl = document.createElement("div"); 
     cardEl.setAttribute("class", "card");
    
-    // build a bi ygly chunk of html..
-    var str = `<div class = "card-body">
+    // build a big ugly chunk of html..
+    var htmlStr = `<div class = "card-body">
         <h5 id="city-now" class = "card-title">${cityObj.name} : ${moment.unix(cityObj.dt).format("MMM Do YYYY")}</h5>
+        <img src="${iconurl}" alt="">
         <p class="card-text">Temperature: ${tempStr}</p>
         <p class="card-text">Humidity: ${cityObj.main.humidity}% relative </p>
-        <p class="card-text">Wind Speed: ${cityObj.wind.speed}m/s <span id ="arrow" style="--angle: ${cityObj.wind.deg}deg;">&#8679;</span>  </p>
+        <p class="card-text">Wind Speed: ${cityObj.wind.speed}m/s <span id ="arrow" style="--angle: ${cityObj.wind.deg}deg">&#8679;</span>  </p>
         <p class="card-text">UV Index:  <span class = "badge ${uvclass}">${UVindex}</span> </p>
     </div>`;
 
-    cardEl.innerHTML = str;
+    cardEl.innerHTML = htmlStr;   
 
-   
-
-    // Attach the whole schabang
+    // Attach to the today card element
     var todayEl =  document.querySelector("#today");
     console.log(todayEl);
     todayEl.appendChild(cardEl);
     
 };
+
+// function to build a forecast weather card
+var populateForecastCard = function(){
+    //Build a dom element for the forecast card
+    var cardEl = document.createElement("div"); 
+    cardEl.setAttribute("class", "card");
+}
+
+
+
 
 
 var populateForecast = function(cityObj){
