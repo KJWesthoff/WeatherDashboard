@@ -69,6 +69,14 @@ var addCity = function(cityName, cityCountry, cityId){
         "country":cityCountry,
         "id":cityId  
     }
+
+    // check if the city is allready there if it is then replace and prepend
+    for(i = 0; i<cityList.length; i++){
+        if(cityList[i].id === cityId){
+            cityList.splice(i,1);
+        }
+    }
+
     cityList.push(cityObj);
     localStorage.setItem("cityList", JSON.stringify(cityList));
     renderCities(cityList);  
@@ -77,6 +85,7 @@ var addCity = function(cityName, cityCountry, cityId){
 
 var renderCities = function(cList){
     cityListEl = document.getElementById("cityHistory");
+    cityListEl.innerHTML = "";
 
     for(city of cList){
     
@@ -141,10 +150,6 @@ var populateNow = function(cityObj, UVindex){
     todayEl.appendChild(cardEl);
     
 };
-
-
-
-
 
 var populateForecast = function(fcastObj){
     
@@ -264,8 +269,17 @@ var handleSearchClick = function(){
 
 }
 
+
+// Finish liene .....
+var handleListClick = function(event){
+    
+    
+}
+
+
 // Main program exceutions
 renderCities(cityList);
 
 document.getElementById("search-btn").addEventListener("click",handleSearchClick);
 
+document.getElementById("cityHistory").addEventListener("click", handleListClick);
