@@ -6,7 +6,9 @@ The openweathermap API is used for this page, for it to work you need to get you
 ### API key HowTo:
 Go to https://openweathermap.org to Get Started and Register, when you receive an API key, modify the "config_api-replace_.js file in ASSETS/js by inserting your key and rename it to config.js 
 
-To see the page "in action" a version on a GitHub privat repo copy which is identical is published here:
+To see the page "in action" a version on a GitHub repo copy would be published here:
+
+
 
 
 
