@@ -1,5 +1,5 @@
 # Weather Dashboard
-This is a weather dashbord page that shows the current weaterh anf forecast for a city or place of your choice.
+This is a weather dashbord page that shows the current weater and forecast for a city or place of your choice.
 
 ## OpenWeater API
 The openweathermap API is used for this page, for it to work you need to get your own API key (I have yet to learn to serve it up for you..)
@@ -7,6 +7,8 @@ The openweathermap API is used for this page, for it to work you need to get you
 Go to https://openweathermap.org to Get Started and Register, when you receive an API key, modify the "config_api-replace_.js file in ASSETS/js by inserting your key and rename it to config.js 
 
 To see the page "in action" a version on a GitHub privat repo copy which is identical is published here:
+
+
 
 ## Features
 ### Search
@@ -16,5 +18,20 @@ To see the page "in action" a version on a GitHub privat repo copy which is iden
     * When a city is re-vistited it is placed at the top of your search history
     * Duplicates are removed from the list, the latest search is placed at the top   
 ### Current Weather
+The current weathter is shown with
+* A weather icon
+* Temperature in C and F
+* Realtive humidity %
+* Wind Speed in m/s and knots
+    * The wind direction is shown relative to north with an arrow
+* A the current UV index is shown with a colorcoding according to https://www.epa.gov/sunsafety/calculating-uv-index-0
+
+### Weather Forecast
+* Temperature weather icon and humidity is shown for the next five 2pm times of the future. 
+* The development of weather type(icon) temperature windspeed and direction is shown in for 3 hr intervals in the forthcoming 5 days.
+
+Here is a picture:
+![WeatherDashboard](assets/img/Weatherdashboard.png)
+
 
 
