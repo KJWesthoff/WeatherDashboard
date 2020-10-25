@@ -2,12 +2,10 @@
 This is a weather dashbord page that shows the current weater and forecast for a city or place of your choice.
 
 ## OpenWeater API
-The openweathermap API is used for this page, for it to work you need to get your own API key (I have yet to learn to serve it up for you..)
-### API key HowTo:
-Go to https://openweathermap.org to Get Started and Register, when you receive an API key, modify the "config_api-replace_.js file in ASSETS/js by inserting your key and rename it to config.js 
+The openweathermap API is used for this page, for it to work you should to get your own API key (I have yet to learn to serve it up for you..)
 
-To see the page "in action" a version on a GitHub repo copy would be published here:
-Note it's not working until you add the API key as described above..
+
+Find the page here:
 
 https://kjwesthoff.github.io/WeatherDashboard/
 
