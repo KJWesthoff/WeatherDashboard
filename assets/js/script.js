@@ -26,7 +26,7 @@ var getData = function(cityName){
         //get UV data from long and lat
         var lon = data.coord.lon;
         var lat = data.coord.lat;
-        var urlUV = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${myKey}`;
+        var urlUV = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${myKey}`;
 
         fetch(urlUV).then(function(res){
             return res.json();
