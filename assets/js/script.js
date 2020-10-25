@@ -291,6 +291,4 @@ renderCities(cityList);
 
 document.getElementById("search-btn").addEventListener("click",handleSearchClick);
 document.getElementById("search-input").addEventListener("change",handleSearchClick)
-
-
 document.getElementById("cityHistory").addEventListener("click", handleListClick);
