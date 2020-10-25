@@ -27,7 +27,7 @@ var getData = function(cityName){
         var lon = data.coord.lon;
         var lat = data.coord.lat;
         var urlUV = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${myKey}`;
-
+        //console.log(urlUV);
         fetch(urlUV).then(function(res){
             return res.json();
         }).then(function(UVdata){
