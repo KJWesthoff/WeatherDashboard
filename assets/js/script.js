@@ -138,7 +138,7 @@ var populateNow = function(cityObj, UVindex){
         <img src="${iconurl}" alt="">
         <p class="card-text">Temperature: ${tempStr}</p>
         <p class="card-text">Humidity: ${cityObj.main.humidity}% relative </p>
-        <p class="card-text">Wind Speed: ${cityObj.wind.speed}m/s <span id ="arrow" style="--angle: ${cityObj.wind.deg}deg">&#8679;</span>  </p>
+        <p class="card-text">Wind Speed: ${cityObj.wind.speed}m/s / ${(cityObj.wind.speed*1.94384).toFixed(1)}kts  <span id ="arrow" style="--angle: ${cityObj.wind.deg}deg">&#8679;</span>  </p>
         <p class="card-text">UV Index:  <span class = "badge ${uvclass}">${UVindex}</span> </p>
     </div>`;
 
