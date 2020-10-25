@@ -252,6 +252,13 @@ var populateForecastCard = function(chunkObj){
 }
 
 
+function clearData(){
+    // clear the old data
+    document.getElementById("today").innerHTML = "";
+    document.getElementById("forecastcards").innerHTML = "";
+    document.getElementById("five-days").innerHTML = "";
+    
+};
 
 
 
@@ -260,9 +267,7 @@ var handleSearchClick = function(){
     var cityName = document.getElementById("search-input").value    
     
     // clear the old data
-    document.getElementById("today").innerHTML = "";
-    document.getElementById("forecastcards").innerHTML = "";
-    document.getElementById("five-days").innerHTML = "";
+   clearData()
     
     
     getData(cityName);
@@ -272,8 +277,12 @@ var handleSearchClick = function(){
 
 // Finish liene .....
 var handleListClick = function(event){
-    
-    
+   clearData()
+   if(event.target.className === "list-group-item"){
+       //get the city..
+       var cityName = event.target.textContent
+       getData(cityName);  
+  }; 
 }
 
 
