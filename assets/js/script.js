@@ -187,18 +187,23 @@ var populateForecastCard = function(chunkObj){
 
     // dig out varoius data from the API chunk
     //find the next 2pm..
+    var twoPmFoundFlag = false;
     for(i=0; i<chunkObj.length; i++){
         
         time= chunkObj[i]
-        console.log(moment.unix(time.dt).format("h:a"));
-        if(moment.unix(time.dt).format("h:a") >=  moment("2:pm", "h:a").format("h:a")){  
+        
+        if(moment.unix(time.dt).hour() >=  moment("12:am", "h:a").hour() && !twoPmFoundFlag){  
             //console.log("----Found 2Pm");
             twoPmEl = chunkObj[i];
+            twoPmFoundFlag = true;
+           
 
         };
     };
 
+    timeStr = moment.unix(twoPmEl.dt).format("h:a")
     dateStr = moment.unix(twoPmEl.dt).format("MMM Do");
+   
 
     //build a html elment for each our of the chunk
     var rowEl = document.createElement("div");
@@ -230,7 +235,7 @@ var populateForecastCard = function(chunkObj){
     <div class="card bg-primary text-light" style="width: 12rem;">
         <div class="card-body">
             <div class = "row" >
-                <h5 class="col card-title">${dateStr} 2pm</h5>
+                <h5 class="col card-title">${dateStr} ${timeStr}</h5>
             </div>
             <div class = "row">
                 <div class="col">
