@@ -190,8 +190,8 @@ var populateForecastCard = function(chunkObj){
     for(i=0; i<chunkObj.length; i++){
         
         time= chunkObj[i]
-        
-        if(moment.unix(time.dt).format("h:a") ===  "2:pm"){  
+        console.log(moment.unix(time.dt).format("h:a"));
+        if(moment.unix(time.dt).format("h:a") >=  "2:pm"){  
             //console.log("----Found 2Pm");
             twoPmEl = chunkObj[i];
 
