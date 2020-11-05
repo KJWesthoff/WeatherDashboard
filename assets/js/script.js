@@ -119,7 +119,7 @@ var populateNow = function(cityObj, UVindex){
 
     // get icon for weather
     var iconcode = cityObj.weather[0].icon;
-    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
     
     // convert temperature to celcius and farenheit
