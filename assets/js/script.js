@@ -218,7 +218,7 @@ var populateForecastCard = function(chunkObj){
             ${moment.unix(time.dt).format("h")}</br>
             ${moment.unix(time.dt).format("a")}</br>
             ${((time.main.temp-273.15)*9/5+32).toFixed(0) + "&#176"} </br> 
-            <img src="${"http://openweathermap.org/img/w/" + time.weather[0].icon + ".png"}" alt=""></br>  
+            <img src="${"https://openweathermap.org/img/w/" + time.weather[0].icon + ".png"}" alt=""></br>  
             <span id ="arrow" style="--angle: ${time.wind.deg}deg">&#8679;</span> </br>
             ${Math.round((time.wind.speed)*1.94384)}.kt
             
@@ -241,7 +241,7 @@ var populateForecastCard = function(chunkObj){
                 <div class="col">
                    
                     ${((twoPmEl.main.temp-273.15)*9/5+32).toFixed(1) + "&#176F"}  
-                    <img src="${"http://openweathermap.org/img/w/" + twoPmEl.weather[0].icon + ".png"}" alt="">   
+                    <img src="${"https://openweathermap.org/img/w/" + twoPmEl.weather[0].icon + ".png"}" alt="">   
                     Humidity: ${twoPmEl.main.humidity}% rel.                    
                 </div>
             
